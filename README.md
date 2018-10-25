@@ -12,8 +12,8 @@ Installation
 
 ### For Cordova 3.0.x:
 
-1. To add this plugin just type: `cordova plugin add cordova-plugin-canvas2image`
-2. To remove this plugin type: `cordova plugin rm cordova-plugin-canvas2image`
+1. To add this plugin just type: `cordova plugin add https://github.com/rodrigograca31/Canvas2ImagePlugin`
+2. To remove this plugin type: `cordova plugin rm https://github.com/rodrigograca31/Canvas2ImagePlugin`
 
 ### NOTE: For older versions of Cordova (You will probably have to use tag 0.2.0)
 
