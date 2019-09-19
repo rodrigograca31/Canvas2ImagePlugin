@@ -49,18 +49,16 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 				callbackContext.error("Missing base64 string");
 
 			// Create the bitmap from the base64 string
-			Log.d("Canvas2ImagePlugin", base64);
+			//Log.d("Canvas2ImagePlugin", base64);
 			byte[] decodedString = Base64.decode(base64, Base64.DEFAULT);
 			Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 			if (bmp == null) {
 				callbackContext.error("The image could not be decoded");
 			} else {
-
-                this.bmp = bmp;
-                this.callbackContext = callbackContext;
+				this.bmp = bmp;
+				this.callbackContext = callbackContext;
 				// Save the image
 				askPermissionAndSave();
-
 			}
 
 			return true;
@@ -69,20 +67,18 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 		}
 	}
 
-    private void askPermissionAndSave() {
+	private void askPermissionAndSave() {
 
-        if (PermissionHelper.hasPermission(this, WRITE_EXTERNAL_STORAGE)) {
-            Log.d("SaveImage", "Permissions already granted, or Android version is lower than 6");
-            savePhoto();
-        } else {
-            Log.d("SaveImage", "Requesting permissions for WRITE_EXTERNAL_STORAGE");
-            PermissionHelper.requestPermission(this, WRITE_PERM_REQUEST_CODE, WRITE_EXTERNAL_STORAGE);
-        }
+		if (PermissionHelper.hasPermission(this, WRITE_EXTERNAL_STORAGE)) {
+		    Log.d("SaveImage", "Permissions already granted, or Android version is lower than 6");
+		    savePhoto();
+		} else {
+		    Log.d("SaveImage", "Requesting permissions for WRITE_EXTERNAL_STORAGE");
+		    PermissionHelper.requestPermission(this, WRITE_PERM_REQUEST_CODE, WRITE_EXTERNAL_STORAGE);
+		}
 	}
 
-
 	private void savePhoto() {
-    
         
 		File image = null;
         
