@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
@@ -100,25 +99,11 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 					+ c.get(Calendar.SECOND)
 					+ c.get(Calendar.MILLISECOND);
 
-			String deviceVersion = Build.VERSION.RELEASE;
-			Log.i("Canvas2ImagePlugin", "Android version " + deviceVersion);
-			int check = deviceVersion.compareTo("2.3.3");
+			File folder = Environment
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
-			File folder;
-			/*
-			 * File path = Environment.getExternalStoragePublicDirectory(
-			 * Environment.DIRECTORY_PICTURES ); //this throws error in Android
-			 * 2.2
-			 */
-			if (check >= 1) {
-				folder = Environment
-					.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-				if(!folder.exists()) {
-					folder.mkdirs();
-				}
-			} else {
-				folder = Environment.getExternalStorageDirectory();
+			if(!folder.exists()) {
+				folder.mkdirs();
 			}
 
 			File imageFile = new File(folder, "c2i_" + date.toString() + ".png");
