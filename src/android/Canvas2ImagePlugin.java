@@ -36,15 +36,18 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
     private final String WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final int WRITE_PERM_REQUEST_CODE = 1;
     private CallbackContext callbackContext;
+    private String format;
     private Bitmap bmp;
 
 	@Override
-	public boolean execute(String action, JSONArray data,
+	public boolean execute(String action, JSONArray args,
 			CallbackContext callbackContext) throws JSONException {
+
+		this.format = args.optString(1);
 
 		if (action.equals(ACTION)) {
 
-			String base64 = data.optString(0);
+			String base64 = args.optString(0);
 			if (base64.equals("")) // isEmpty() requires API level 9
 				callbackContext.error("Missing base64 string");
 
@@ -79,10 +82,9 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 	}
 
 	private void savePhoto() {
-        
+
 		File image = null;
-        
-        Bitmap bmp = this.bmp;
+        // Bitmap bmp = this.bmp;
         CallbackContext callbackContext = this.callbackContext;
 
 		try {
@@ -102,12 +104,16 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 				folder.mkdirs();
 			}
 
-			File imageFile = new File(folder, "c2i_" + date.toString() + ".png");
-
+			// long startTime = System.currentTimeMillis();
+			File imageFile = new File(folder, "c2i_" + date.toString() + (this.format.equals("png") ? ".png" : ".jpg"));
 			FileOutputStream out = new FileOutputStream(imageFile);
-			bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+
+			this.bmp.compress(this.format.equals("png") ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100, out);
 			out.flush();
 			out.close();
+
+			// long difference = System.currentTimeMillis() - startTime;
+			// Log.d("Time: " + Long.toString(difference), "whatever");
 
 			image = imageFile;
 		} catch (Exception e) {
@@ -156,3 +162,4 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
         }
     }
 }
+

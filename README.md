@@ -31,14 +31,15 @@ Call the `window.canvas2ImagePlugin.saveImageDataToLibrary()` method using succe
 function onDeviceReady()
 {
 	window.canvas2ImagePlugin.saveImageDataToLibrary(
-        function(msg){
-            console.log(msg);
-        },
-        function(err){
-            console.log(err);
-        },
-        document.getElementById('myCanvas')
-    );
+		function(msg){
+			console.log(msg);
+		},
+		function(err){
+			console.log(err);
+		},
+		document.getElementById('myCanvas'),
+		"jpeg" // format is optional, defaults to 'png'
+	);
 }
 ```
 
