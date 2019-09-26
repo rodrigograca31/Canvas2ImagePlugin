@@ -17,6 +17,14 @@ Installation
 
 ### NOTE: For older versions of Cordova (You will probably have to use tag 0.2.0)
 
+For iOS, you will need to add the following to your config.xml file within `<platform name="ios">`:
+
+```
+<edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+    <string>Description goes here.</string>
+</edit-config>
+```
+
 Usage:
 ------
 
