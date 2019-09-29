@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/devgeeks/Canvas2ImagePlugin.git"
+    "url": "git+https://github.com/rodrigograca31/Canvas2ImagePlugin.git"
   },
   "keywords": [
     "canvas",
@@ -21,7 +21,8 @@
     "ecosystem:cordova",
     "cordova-ios",
     "cordova-android",
-    "cordova-wp8"
+    "cordova-wp8",
+    "cordova"
   ],
   "engines": [
     {
@@ -36,7 +37,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/devgeeks/Canvas2ImagePlugin/issues"
+    "url": "https://github.com/rodrigograca31/Canvas2ImagePlugin/issues"
   },
-  "homepage": "https://github.com/devgeeks/Canvas2ImagePlugin#readme"
+  "homepage": "https://github.com/rodrigograca31/Canvas2ImagePlugin#readme"
 }
