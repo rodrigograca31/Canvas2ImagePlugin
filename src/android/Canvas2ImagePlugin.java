@@ -1,4 +1,4 @@
-package org.devgeeks.Canvas2ImagePlugin;
+package com.rodrigograca.canvas2image;
 
 import java.io.File;
 import java.io.FileOutputStream;

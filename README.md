@@ -1,21 +1,10 @@
-Canvas2ImagePlugin
-============
-
-### NOTE: I'm gonna try my best to keep this plugin alive moving foward. I've incorporated two important PRs so far, will be accepting more if submitted. (I can read Java and test on Android but I can't code Java...)
+# Canvas2ImagePlugin
 
 This plugin allows you to save the contents of an HTML canvas tag to the iOS Photo Library, Android Gallery or WindowsPhone 8 Photo Album from your app.
 
-See an example project using it here: [https://github.com/devgeeks/Canvas2ImageDemo](https://github.com/devgeeks/Canvas2ImageDemo) - note: this app does not work in wp8.
+## Installation
 
-Installation
-------------
-
-### For Cordova 3.0.x:
-
-1. To add this plugin just type: `cordova plugin add https://github.com/rodrigograca31/Canvas2ImagePlugin`
-2. To remove this plugin type: `cordova plugin rm https://github.com/rodrigograca31/Canvas2ImagePlugin`
-
-### NOTE: For older versions of Cordova (You will probably have to use tag 0.2.0)
+`cordova plugin add cordova-plugin-canvas2image-updated`
 
 For iOS, you will need to add the following to your config.xml file within `<platform name="ios">`:
 
@@ -25,27 +14,26 @@ For iOS, you will need to add the following to your config.xml file within `<pla
 </edit-config>
 ```
 
-Usage:
-------
+## Usage:
 
 Call the `window.canvas2ImagePlugin.saveImageDataToLibrary()` method using success and error callbacks and the id attribute or the element object of the canvas to save:
 
 ### Example
+
 ```html
 <canvas id="myCanvas" width="165px" height="145px"></canvas>
 ```
 
 ```javascript
-function onDeviceReady()
-{
+function onDeviceReady() {
 	window.canvas2ImagePlugin.saveImageDataToLibrary(
-		function(msg){
+		function(msg) {
 			console.log(msg);
 		},
-		function(err){
+		function(err) {
 			console.log(err);
 		},
-		document.getElementById('myCanvas'),
+		document.getElementById("myCanvas"),
 		"jpeg" // format is optional, defaults to 'png'
 	);
 }

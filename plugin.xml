@@ -1,7 +1,7 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="org.devgeeks.Canvas2ImagePlugin"
-    version="1.0.0">
+    id="cordova-plugin-canvas2image-updated"
+    version="1.1.0">
 
     <name>Canvas 2 Image</name>
 
@@ -10,7 +10,7 @@
     </engines>
 
     <description>This plugin allows you to save the contents of an HTML canvas tag to the iOS Photo Library, or Android Gallery from your app.</description>
-    <author>Tommy-Carlos Williams - tommy@devgeeks.org</author>
+    <author>Rodrigo Graça</author>
     <keywords>canvas,image,photo library</keywords>
 
     <license>MIT</license>
@@ -19,6 +19,7 @@
         <clobbers target="window.canvas2ImagePlugin" />
     </js-module>
     
+	<!-- DEPRECATED: maybe can be removed? https://github.com/apache/cordova-plugin-compat -->
     <dependency id="cordova-plugin-compat" version="^1.0.0" />
 
     <!-- ios -->
@@ -51,12 +52,12 @@
 
         <config-file target="res/xml/config.xml" parent="/*">
           <feature name="Canvas2ImagePlugin" >
-            <param name="android-package" value="org.devgeeks.Canvas2ImagePlugin.Canvas2ImagePlugin"/>
+            <param name="android-package" value="com.rodrigograca.canvas2image.Canvas2ImagePlugin"/>
           </feature>
         </config-file>
 
         <source-file src="src/android/Canvas2ImagePlugin.java" 
-            target-dir="src/org/devgeeks/Canvas2ImagePlugin" />
+            target-dir="src/org/rodrigograca/Canvas2ImagePlugin" />
 
     </platform>
 
@@ -76,3 +77,4 @@
         <source-file src="src/wp8/Canvas2ImagePlugin.cs" />
     </platform>
 </plugin>
+
