@@ -8,7 +8,7 @@ This plugin allows you to save the contents of an HTML canvas tag to the iOS Pho
 
 For iOS, you will need to add the following to your config.xml file within `<platform name="ios">`:
 
-```
+```xml
 <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
     <string>Description goes here.</string>
 </edit-config>
