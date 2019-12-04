@@ -28,7 +28,7 @@
     UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     // Request to save the image to camera roll
-    [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:ALAssetOrientationRight /*(ALAssetOrientation)[image imageOrientation]*/ completionBlock:^(NSURL *assetURL, NSError *error){
+    [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:ALAssetOrientationUp /*(ALAssetOrientation)[image imageOrientation]*/ completionBlock:^(NSURL *assetURL, NSError *error){
         if (error) {
             // Show error message...
             NSLog(@"ERROR: %@",error);
