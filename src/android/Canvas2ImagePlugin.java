@@ -1,12 +1,16 @@
 package com.rodrigograca.canvas2image;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
@@ -17,7 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 /**
  * Canvas2ImagePlugin.java
@@ -79,20 +83,21 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 
     private void savePhoto() {
 
-        File image = null;
+        Uri imageUri = null;
         // Bitmap bmp = this.bmp;
         CallbackContext callbackContext = this.callbackContext;
 
         try {
-            File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            ContentResolver contentResolver = this.cordova.getContext().getContentResolver();
 
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "c2i_" + System.currentTimeMillis() + (this.format.equals("png") ? ".png" : ".jpg"));
+            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, this.format.equals("png") ? "image/png" : "image/jpeg");
+
+            imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
             // long startTime = System.currentTimeMillis();
-            File imageFile = new File(folder, "c2i_" + System.currentTimeMillis() + (this.format.equals("png") ? ".png" : ".jpg"));
-            FileOutputStream out = new FileOutputStream(imageFile);
+            OutputStream out = contentResolver.openOutputStream(imageUri);
 
             this.bmp.compress(this.format.equals("png") ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
@@ -101,18 +106,16 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
             // Log.d("Timestamp: ", ""+System.currentTimeMillis());
             // long difference = System.currentTimeMillis() - startTime;
             // Log.d("Time: " + Long.toString(difference), "whatever");
-
-            image = imageFile;
         } catch (Exception e) {
             Log.e("Canvas2ImagePlugin", "An exception occurred while saving image: " + e.toString());
         }
 
-        if (image == null) {
+        if (imageUri == null) {
             callbackContext.error("Error while saving image");
         } else {
             // Update image gallery
-            scanPhoto(image);
-            callbackContext.success(image.toString());
+            scanPhoto(imageUri);
+            callbackContext.success(imageUri.getPath());
         }
 
     }
@@ -122,10 +125,9 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
      * database, making it available in the Android Gallery application and to other
      * apps.
      */
-    private void scanPhoto(File imageFile) {
+    private void scanPhoto(Uri imageUri) {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri contentUri = Uri.fromFile(imageFile);
-        mediaScanIntent.setData(contentUri);
+        mediaScanIntent.setData(imageUri);
         cordova.getActivity().sendBroadcast(mediaScanIntent);
     }
 
