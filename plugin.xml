@@ -64,21 +64,5 @@
             target-dir="src/org/rodrigograca/Canvas2ImagePlugin" />
 
     </platform>
-
-    <!-- wp8 -->
-    <platform name="wp8">
-        <config-file target="config.xml" parent="/*">
-            <feature name="Canvas2ImagePlugin">
-                <param name="wp-package" value="Canvas2ImagePlugin"/>
-                <param name="onload" value="true" />
-            </feature>
-        </config-file>
-        
-        <config-file target="Properties/WMAppManifest.xml" parent="/Deployment/App/Capabilities">
-            <Capability Name="ID_CAP_MEDIALIB_PHOTO" />
-        </config-file>
-
-        <source-file src="src/wp8/Canvas2ImagePlugin.cs" />
-    </platform>
 </plugin>
 
